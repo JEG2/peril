@@ -16,4 +16,16 @@ describe Category do
     expect(category.respond_to?(:move_lower)).to be_true
     expect(category.respond_to?(:move_higher)).to be_true
   end
+
+  it "has many answers" do
+    category = FactoryGirl.create(:category)
+    answer   = FactoryGirl.create(:answer, category_id: category.id)
+    expect(category.answers).to eq([answer])
+  end
+
+  it "preserves the order of categories" do
+    category = FactoryGirl.create(:category)
+    answers  = Array.new(3) { FactoryGirl.create(:answer, category: category) }
+    expect(category.answers).to eq(answers)
+  end
 end
