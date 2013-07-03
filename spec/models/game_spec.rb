@@ -1,38 +1,19 @@
 require 'spec_helper'
 
+require_relative "named_slug_examples"
+
 describe Game do
-  it "requires a name" do
-    game = Game.new
-    expect(game).to have_an_invalid_field(:name)
+  it_behaves_like "named slug"
 
-    game.name = "Test"
-    expect(game).to have_a_valid_field(:name)
+  it "has many categories" do
+    game     = FactoryGirl.create(:game)
+    category = FactoryGirl.create(:category, game_id: game.id)
+    expect(game.categories).to eq([category])
   end
 
-  it "requires the name to be unique" do
-    game = FactoryGirl.create(:game)  # allowed the first time
-
-    dup = Game.new(name: game.name)
-    expect(dup).to have_an_invalid_field(:name)
-  end
-
-  it "generates a slug from the name" do
-    game = Game.new(name: "test")
-    expect(game.slug).to eq("test")
-  end
-
-  it "downcases generated slugs" do
-    game = Game.new(name: "Test")
-    expect(game.slug).to eq("test")
-  end
-
-  it "replaces all non-alphanumerics with dashes in generated slugs" do
-    game = Game.new(name: "key => value")
-    expect(game.slug).to eq("key-value")
-  end
-
-  it "removes leading and trailing non-alphanumerics in generated slugs" do
-    game = Game.new(name: "  test!")
-    expect(game.slug).to eq("test")
+  it "preserves the order of categories" do
+    game       = FactoryGirl.create(:game)
+    categories = Array.new(3) { FactoryGirl.create(:category, game: game) }
+    expect(game.categories).to eq(categories)
   end
 end

@@ -1,4 +1,4 @@
-class Game < ActiveRecord::Base
+class Category < ActiveRecord::Base
   #################
   ### Behaviors ###
   #################
@@ -9,5 +9,6 @@ class Game < ActiveRecord::Base
   ### Associations ###
   ####################
 
-  has_many :categories, -> { order(:position) }
+  belongs_to   :game
+  acts_as_list scope: :game
 end

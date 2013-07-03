@@ -1,0 +1,1 @@
+require "named_slug"
