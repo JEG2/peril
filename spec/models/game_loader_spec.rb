@@ -53,6 +53,14 @@ describe GameLoader do
     expect(game.categories.last.answers.map(&:body)).to  eq(%w[A2 A3])
   end
 
+  it "can build a reward list during configuration" do
+    game = load_game do
+      rewards 200, 400
+    end
+    expect(game.rewards.size).to         eq(2)
+    expect(game.rewards.map(&:score)).to eq([200, 400])
+  end
+
   it "can be configured from a file" do
     game_file = Tempfile.new("test_game")
     game_file.puts "game 'Test File Load Game'"

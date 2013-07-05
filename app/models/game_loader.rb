@@ -16,6 +16,12 @@ class GameLoader
     def answer(body, question)
       @last_category.answers.build(body: body, question: question)
     end
+
+    def rewards(*scores)
+      scores.each do |score|
+        @game.rewards.build(score: score)
+      end
+    end
   end
 
   def initialize
