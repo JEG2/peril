@@ -9,5 +9,5 @@ class Game < ActiveRecord::Base
   ### Associations ###
   ####################
 
-  has_many :categories, -> { order(:position) }
+  has_many :categories, -> { order(:position) }, dependent: :destroy
 end

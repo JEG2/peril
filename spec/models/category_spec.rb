@@ -23,9 +23,15 @@ describe Category do
     expect(category.answers).to eq([answer])
   end
 
-  it "preserves the order of categories" do
+  it "preserves the order of answers" do
     category = FactoryGirl.create(:category)
     answers  = Array.new(3) { FactoryGirl.create(:answer, category: category) }
     expect(category.answers).to eq(answers)
+  end
+
+  it "removes answers with the category" do
+    answer = FactoryGirl.create(:answer)
+    answer.category.destroy
+    expect(Answer.find_by_id(answer.id)).to be_nil
   end
 end

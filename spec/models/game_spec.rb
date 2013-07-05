@@ -16,4 +16,10 @@ describe Game do
     categories = Array.new(3) { FactoryGirl.create(:category, game: game) }
     expect(game.categories).to eq(categories)
   end
+
+  it "removes categories with the game" do
+    category = FactoryGirl.create(:category)
+    category.game.destroy
+    expect(Category.find_by_id(category.id)).to be_nil
+  end
 end
