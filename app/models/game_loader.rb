@@ -1,12 +1,16 @@
 class GameLoader
   class DSL < BasicObject
-    def initialize(game)
+    def initialize(game, reload)
       @game          = game
+      @reload        = reload
       @last_category = nil
     end
 
     def game(name)
       @game.name = name
+      if @reload && (already_loaded = @game.class.find_by_name(name))
+        already_loaded.destroy
+      end
     end
 
     def category(name)
@@ -30,15 +34,16 @@ class GameLoader
     end
   end
 
-  def initialize
-    @game = Game.new
+  def initialize(reload: false)
+    @game   = Game.new
+    @reload = reload
   end
 
-  attr_reader :game
-  private     :game
+  attr_reader :game, :reload
+  private     :game, :reload
 
   def configure(*args, &block)
-    DSL.new(game).instance_eval(*args, &block)
+    DSL.new(game, reload).instance_eval(*args, &block)
   end
 
   def configure_from_file(path)

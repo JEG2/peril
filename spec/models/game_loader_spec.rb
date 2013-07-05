@@ -3,8 +3,8 @@ require 'spec_helper'
 require "tempfile"
 
 describe GameLoader do
-  def load_game(path = nil, &configuration)
-    loader = GameLoader.new
+  def load_game(reload: false, path: nil, &configuration)
+    loader = GameLoader.new(reload: reload)
     loader.configure_from_file(path) if path
     loader.configure(&configuration) if configuration
     loader.load
@@ -18,6 +18,24 @@ describe GameLoader do
   it "tries to save on load" do
     game = load_game
     expect(game.errors).not_to be_empty
+  end
+
+  it "wont overwrite a game by default" do
+    original = FactoryGirl.create(:game)
+    reloaded = load_game do
+      game original.name
+    end
+    expect(Game.find_by_id(original.id)).to eq(original)
+    expect(reloaded.new_record?).to         be_true
+  end
+
+  it "will reload a game if requested" do
+    original = FactoryGirl.create(:game)
+    reloaded = load_game(reload: true) do
+      game original.name
+    end
+    expect(Game.find_by_id(original.id)).to be_nil
+    expect(reloaded.new_record?).to         be_false
   end
 
   it "can configure the game object before loading" do
@@ -74,7 +92,7 @@ describe GameLoader do
     game_file.puts "game 'Test File Load Game'"
     game_file.close
 
-    game = load_game(game_file.path)
+    game = load_game(path: game_file.path)
     expect(game.name).to eq("Test File Load Game")
   end
 end
