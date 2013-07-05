@@ -53,4 +53,22 @@ describe Game do
     game.rewards.build(score: 400)
     expect(game).to have_a_valid_field(:categories)
   end
+
+  it "has many players" do
+    game   = FactoryGirl.create(:game)
+    player = FactoryGirl.create(:player, game_id: game.id)
+    expect(game.players).to eq([player])
+  end
+
+  it "preserves the order of players" do
+    game    = FactoryGirl.create(:game)
+    players = Array.new(3) { FactoryGirl.create(:player, game: game) }
+    expect(game.players).to eq(players)
+  end
+
+  it "removes players with the game" do
+    player = FactoryGirl.create(:player)
+    player.game.destroy
+    expect(Player.find_by_id(player.id)).to be_nil
+  end
 end

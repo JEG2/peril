@@ -22,6 +22,12 @@ class GameLoader
         @game.rewards.build(score: score)
       end
     end
+
+    def players(*names)
+      names.each do |name|
+        @game.players.build(name: name)
+      end
+    end
   end
 
   def initialize

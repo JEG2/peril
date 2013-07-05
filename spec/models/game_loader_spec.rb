@@ -61,6 +61,14 @@ describe GameLoader do
     expect(game.rewards.map(&:score)).to eq([200, 400])
   end
 
+  it "can build a player list during configuration" do
+    game = load_game do
+      players "One", "Two", "Three"
+    end
+    expect(game.players.size).to        eq(3)
+    expect(game.players.map(&:name)).to eq(%w[One Two Three])
+  end
+
   it "can be configured from a file" do
     game_file = Tempfile.new("test_game")
     game_file.puts "game 'Test File Load Game'"

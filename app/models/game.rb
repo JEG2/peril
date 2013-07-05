@@ -9,6 +9,7 @@ class Game < ActiveRecord::Base
   ### Associations ###
   ####################
 
+  has_many :players,    -> { order(:position) }, dependent: :destroy
   has_many :rewards,    -> { order(:position) }, dependent: :destroy
   has_many :categories, -> { order(:position) }, dependent: :destroy
 
