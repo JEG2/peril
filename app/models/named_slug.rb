@@ -18,6 +18,10 @@ module NamedSlug
     build_slug
   end
 
+  def to_param
+    slug
+  end
+
   #######
   private
   #######

@@ -1,0 +1,49 @@
+// Place all the styles related to the games controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#game_list {
+  padding:   10px;
+  font-size: 2em;
+  
+  h1 {
+    margin:  0px;
+    padding: 0px;
+  }
+  
+  a:hover, a:visited {
+    color: white;
+  }
+}
+
+.category {
+  float: left;
+  
+  .category_name, .reward {
+    $game_block_width:  155px;
+    width:              $game_block_width;
+    $game_block_height: 75px;
+    height:             $game_block_height;
+    margin-left:        10px;
+    background-color:   #1213B0;
+    
+    .content {
+      width:          $game_block_width;
+      height:         $game_block_height;
+      display:        table-cell;
+      vertical-align: middle;
+      text-align:     center;
+    }
+  }
+  
+  .category_name {
+    margin-top:    10px;
+    margin-bottom: 20px;
+    font-size:     18pt;
+  }
+  
+  .reward {
+    margin-top: 10px;
+    font-size:  24pt;
+  }
+}

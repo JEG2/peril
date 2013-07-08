@@ -71,4 +71,17 @@ describe Game do
     player.game.destroy
     expect(Player.find_by_id(player.id)).to be_nil
   end
+
+  it "can find the reward for a given answer" do
+    game     = Game.new(name: "Game")
+    category = game.categories.build(name: "Category")
+    answer_1 = category.answers.build(body: "A1", question: "Q1")
+    answer_2 = category.answers.build(body: "A2", question: "Q2")
+    reward_1 = game.rewards.build(score: 200)
+    reward_2 = game.rewards.build(score: 400)
+    game.save!
+
+    expect(game.reward_for(answer_1)).to eq(reward_1)
+    expect(game.reward_for(answer_2)).to eq(reward_2)
+  end
 end

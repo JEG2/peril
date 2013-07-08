@@ -34,4 +34,9 @@ shared_examples "named slug" do
     named = described_class.new(name: "  test!")
     expect(named.slug).to eq("test")
   end
+
+  it "uses the slug in urls" do
+    named = described_class.new(name: "Test")
+    expect(named.to_param).to eq(named.slug)
+  end
 end

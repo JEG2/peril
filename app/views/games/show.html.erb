@@ -1,0 +1,17 @@
+<% @game.categories.each do |category| %>
+  <div class="category">
+    <div class="category_name">
+      <div class="content">
+        <%= category.name %>
+      </div>
+    </div>
+    <% category.answers.each do |answer| %>
+      <div class="reward">
+        <div class="content">
+          <%= number_with_delimiter @game.reward_for(answer).score %>
+          <%= image_tag "ruby.png" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

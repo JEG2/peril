@@ -29,4 +29,12 @@ class Game < ActiveRecord::Base
     end
   end
   private :rewards_cover_answers
+
+  ########################
+  ### Instance Methods ###
+  ########################
+
+  def reward_for(answer)
+    rewards.detect { |reward| reward.position == answer.position }
+  end
 end
