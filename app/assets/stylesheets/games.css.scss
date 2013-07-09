@@ -2,18 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$jeopardy_blue: #1213B0;
+
 #game_list {
   padding:   10px;
   font-size: 2em;
-  
-  h1 {
-    margin:  0px;
-    padding: 0px;
-  }
-  
-  a:hover, a:visited {
-    color: white;
-  }
 }
 
 .category {
@@ -25,7 +18,7 @@
     $game_block_height: 75px;
     height:             $game_block_height;
     margin-left:        10px;
-    background-color:   #1213B0;
+    background-color:   $jeopardy_blue;
     
     .content {
       width:          $game_block_width;
@@ -45,5 +38,28 @@
   .reward {
     margin-top: 10px;
     font-size:  24pt;
+  }
+}
+
+.full_screen {
+  $full_screen_width:  980px;
+  width:               $full_screen_width;
+  $full_screen_height: 724px;
+  height:              $full_screen_height;
+  margin-left:         10px;
+  border-top:          10px solid black;
+  background-color:    $jeopardy_blue;
+  font-size:           96px;
+
+  .content {
+    width:          $full_screen_width;
+    height:         $full_screen_height;
+    display:        table-cell;
+    vertical-align: middle;
+    text-align:     center;
+  }
+  
+  #question {
+    display: none;
   }
 }

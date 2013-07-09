@@ -12,4 +12,12 @@ class Reward < ActiveRecord::Base
 
   validates :score, presence:     true,
                     numericality: {only_integer: true, greater_than: 0}
+
+  ########################
+  ### Instance Methods ###
+  ########################
+
+  def to_param
+    score
+  end
 end

@@ -84,4 +84,33 @@ describe Game do
     expect(game.reward_for(answer_1)).to eq(reward_1)
     expect(game.reward_for(answer_2)).to eq(reward_2)
   end
+
+  it "returns nil if a reward cannot be found" do
+    game = FactoryGirl.create(:game)
+    expect(game.reward_for(Answer.new)).to be_nil
+  end
+
+  it "can locate answers for a given category and reward" do
+    game       = Game.new(name: "Game")
+    category_1 = game.categories.build(name: "C1")
+    answer_1   = category_1.answers.build(body: "A1", question: "Q1")
+    answer_2   = category_1.answers.build(body: "A2", question: "Q2")
+    category_2 = game.categories.build(name: "C2")
+    answer_3   = category_2.answers.build(body: "A3", question: "Q3")
+    answer_4   = category_2.answers.build(body: "A4", question: "Q4")
+    reward_1   = game.rewards.build(score: 200)
+    reward_2   = game.rewards.build(score: 400)
+    game.save!
+
+    expect(game.answer_for(category_1.slug, reward_1.score)).to eq(answer_1)
+    expect(game.answer_for(category_2.slug, reward_2.score)).to eq(answer_4)
+  end
+
+  it "returns a nil answer if it cannot be found for any reason" do
+    game = FactoryGirl.create(:game)
+    expect(game.answer_for("missing", 200)).to be_nil
+
+    category = FactoryGirl.create(:category, game: game)
+    expect(game.answer_for(category.slug, 200)).to be_nil
+  end
 end

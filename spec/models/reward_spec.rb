@@ -33,4 +33,9 @@ describe Reward do
     reward = Reward.new(score: -1)
     expect(reward).to have_an_invalid_field(:score)
   end
+
+  it "uses the score in urls" do
+    reward = Reward.new(score: 200)
+    expect(reward.to_param).to eq(reward.score)
+  end
 end

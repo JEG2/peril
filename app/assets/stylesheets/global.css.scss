@@ -3,6 +3,16 @@ body {
   padding:          0px;
   background-image: image-url("wild_oliva.png");
   color:            white;
+  
+  h1 {
+    margin:  0px;
+    padding: 0px;
+  }
+  
+  a, a:hover, a:visited {
+    color:           white;
+    text-decoration: none;
+  }
 
   #peril {
     width:            1000px;

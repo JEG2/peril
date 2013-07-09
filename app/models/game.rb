@@ -37,4 +37,11 @@ class Game < ActiveRecord::Base
   def reward_for(answer)
     rewards.detect { |reward| reward.position == answer.position }
   end
+
+  def answer_for(category_slug, reward_score)
+    if (category = categories.find_by_slug(category_slug)) &&
+       (reward   = rewards.find_by_score(reward_score))
+      category.answers.find_by_position(reward.position)
+    end
+  end
 end
