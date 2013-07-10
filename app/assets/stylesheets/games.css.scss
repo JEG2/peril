@@ -33,11 +33,13 @@ $jeopardy_blue: #1213B0;
     margin-top:    10px;
     margin-bottom: 20px;
     font-size:     18pt;
+    text-shadow:   2px 2px black;
   }
   
   .reward {
-    margin-top: 10px;
-    font-size:  24pt;
+    margin-top:  10px;
+    font-size:   24pt;
+    text-shadow: 3px 3px black;
   }
 }
 
@@ -50,6 +52,7 @@ $jeopardy_blue: #1213B0;
   border-top:          10px solid black;
   background-color:    $jeopardy_blue;
   font-size:           96px;
+  text-shadow:         5px 5px black;
 
   .content {
     width:          $full_screen_width;
