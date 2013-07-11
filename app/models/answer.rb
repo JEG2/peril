@@ -11,4 +11,12 @@ class Answer < ActiveRecord::Base
   ###################
 
   validates :body, :question, presence: true
+
+  ########################
+  ### Instance Methods ###
+  ########################
+
+  def viewed?
+    viewed_at.present?
+  end
 end

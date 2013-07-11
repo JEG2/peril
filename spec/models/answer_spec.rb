@@ -29,4 +29,12 @@ describe Answer do
                       "the universe, and everything?"
     expect(answer).to have_a_valid_field(:question)
   end
+
+  it "knows if the viewed flag has been set" do
+    answer = Answer.new
+    expect(answer).not_to be_viewed
+
+    answer.viewed_at = Time.now
+    expect(answer).to be_viewed
+  end
 end

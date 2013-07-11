@@ -11,4 +11,15 @@ require 'spec_helper'
 #   end
 # end
 describe GamesHelper do
+  it "renders blank rewards for viewed answers" do
+    answer = Answer.new(viewed_at: Time.now)
+    expect(helper.render_reward(nil, nil, answer)).to eq("&nbsp;")
+  end
+
+  it "it renders a linked amount for an actual reward" do
+    answer = FactoryGirl.create(:answer)
+    answer.category.game.rewards.create!(score: 200)
+    link = helper.render_reward(answer.category.game, answer.category, answer)
+    expect(link).to match(/<a\b[^>]+>200\b/)
+  end
 end

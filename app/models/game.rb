@@ -12,6 +12,7 @@ class Game < ActiveRecord::Base
   has_many :players,    -> { order(:position) }, dependent: :destroy
   has_many :rewards,    -> { order(:position) }, dependent: :destroy
   has_many :categories, -> { order(:position) }, dependent: :destroy
+  has_many :events,                              dependent: :destroy
 
   ###################
   ### Validations ###

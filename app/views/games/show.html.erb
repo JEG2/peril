@@ -8,9 +8,7 @@
     <% category.answers.each do |answer| %>
       <div class="reward">
         <div class="content">
-          <% reward = @game.reward_for(answer) %>
-          <%= link_to number_with_delimiter(reward.score), answer_path(@game, category, reward) %>
-          <%= image_tag "ruby.png" %>
+          <%= render_reward(@game, category, answer) %>
         </div>
       </div>
     <% end %>

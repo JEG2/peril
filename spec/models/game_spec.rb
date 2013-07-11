@@ -5,23 +5,22 @@ require_relative "named_slug_examples"
 describe Game do
   it_behaves_like "named slug"
 
-  it "has many categories" do
-    game     = FactoryGirl.create(:game)
-    category = FactoryGirl.create(:category, game_id: game.id)
-    expect(game.categories(true)).to eq([category])
+  it "has many players" do
+    game   = FactoryGirl.create(:game)
+    player = FactoryGirl.create(:player, game_id: game.id)
+    expect(game.players).to eq([player])
   end
 
-  it "preserves the order of categories" do
-    game       = FactoryGirl.create(:game)
-    categories = Array.new(3) { FactoryGirl.create(:category, game: game) }
-    expect(game.categories(true)).to eq(categories)
+  it "preserves the order of players" do
+    game    = FactoryGirl.create(:game)
+    players = Array.new(3) { FactoryGirl.create(:player, game: game) }
+    expect(game.players).to eq(players)
   end
 
-  it "removes categories with the game" do
-    category = FactoryGirl.create(:category)
-    category.game.categories(true)  # refresh the list so destroy() will see it
-    category.game.destroy
-    expect(Category.find_by_id(category.id)).to be_nil
+  it "removes players with the game" do
+    player = FactoryGirl.create(:player)
+    player.game.destroy
+    expect(Player.find_by_id(player.id)).to be_nil
   end
 
   it "has many rewards" do
@@ -42,6 +41,38 @@ describe Game do
     expect(Reward.find_by_id(reward.id)).to be_nil
   end
 
+  it "has many categories" do
+    game     = FactoryGirl.create(:game)
+    category = FactoryGirl.create(:category, game_id: game.id)
+    expect(game.categories(true)).to eq([category])
+  end
+
+  it "preserves the order of categories" do
+    game       = FactoryGirl.create(:game)
+    categories = Array.new(3) { FactoryGirl.create(:category, game: game) }
+    expect(game.categories(true)).to eq(categories)
+  end
+
+  it "removes categories with the game" do
+    category = FactoryGirl.create(:category)
+    category.game.categories(true)  # refresh the list so destroy() will see it
+    category.game.destroy
+    expect(Category.find_by_id(category.id)).to be_nil
+  end
+
+  it "has many events" do
+    game  = FactoryGirl.create(:game)
+    event = FactoryGirl.create(:viewed_event, game_id: game.id)
+    expect(game.events(true)).to eq([event])
+  end
+
+  it "removes events with the game" do
+    event = FactoryGirl.create(:viewed_event)
+    event.game.events(true)  # refresh the list so destroy() will see it
+    event.game.destroy
+    expect(ViewedEvent.find_by_id(event.id)).to be_nil
+  end
+
   it "requires a reward for each answer" do
     game     = Game.new(name: "Game")
     category = game.categories.build(name: "Category")
@@ -52,24 +83,6 @@ describe Game do
 
     game.rewards.build(score: 400)
     expect(game).to have_a_valid_field(:categories)
-  end
-
-  it "has many players" do
-    game   = FactoryGirl.create(:game)
-    player = FactoryGirl.create(:player, game_id: game.id)
-    expect(game.players).to eq([player])
-  end
-
-  it "preserves the order of players" do
-    game    = FactoryGirl.create(:game)
-    players = Array.new(3) { FactoryGirl.create(:player, game: game) }
-    expect(game.players).to eq(players)
-  end
-
-  it "removes players with the game" do
-    player = FactoryGirl.create(:player)
-    player.game.destroy
-    expect(Player.find_by_id(player.id)).to be_nil
   end
 
   it "can find the reward for a given answer" do
