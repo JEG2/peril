@@ -1,0 +1,11 @@
+<% @title = "#{@game.name}:  Categories" %>
+
+<div id="intro" class="full_screen">
+  <div id="safe_screen" class="content">&nbsp;</div>
+
+  <% @categories.each do |category| %>
+    <div class="big_category content">
+      <%= category.name %>
+    </div>
+  <% end %>
+</div>
