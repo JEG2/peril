@@ -15,4 +15,12 @@ describe ViewedEvent do
     event.destroy
     expect(event.answer.viewed_at).to be_nil
   end
+
+  it "quitely does nothing when the answer is removed before the event" do
+    event = FactoryGirl.create(:viewed_event)
+    event.answer.destroy
+    expect do
+      event.reload.destroy
+    end.not_to raise_error(Exception)
+  end
 end

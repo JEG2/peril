@@ -11,6 +11,6 @@ class ViewedEvent < Event
   end
 
   def undo
-    answer.update_attributes(viewed_at: nil)
+    answer.try(:update_attributes, viewed_at: nil)
   end
 end
