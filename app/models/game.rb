@@ -45,4 +45,11 @@ class Game < ActiveRecord::Base
       category.answers.find_by_position(reward.position)
     end
   end
+
+  def last_viewed_answer
+    category_ids = categories.map(&:id)
+    Answer.where("category_id IN (?) AND viewed_at IS NOT NULL", category_ids)
+          .order("viewed_at DESC")
+          .first
+  end
 end

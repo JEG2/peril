@@ -71,3 +71,39 @@ $jeopardy_blue: #1213B0;
     margin-top: 0px;
   }
 }
+
+#players {
+  clear:       both;
+  margin:      0px 105px;
+  padding-top: 74px;
+  
+  .player {
+    float:            left;
+    $player_width:    250px;
+    width:            $player_width;
+    $player_height:   150px;
+    height:           $player_height;
+    margin-left:      20px;
+    background-color: $jeopardy_blue;
+    font-size:        24pt;
+    text-shadow:      3px 3px black;
+    
+    .player_name {
+      font-family: "Bradley Hand ITC TT";
+      text-shadow: none;
+    }
+    
+    .content {
+      width:  $player_width;
+      height: $player_height;
+
+      hr {
+        width: 210px;
+      }
+    }
+  }
+  
+  .player:first-child {
+    margin-left: 0px;
+  }
+}

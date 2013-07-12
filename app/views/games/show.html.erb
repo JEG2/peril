@@ -1,3 +1,5 @@
+<% @title = @game.name %>
+
 <% @game.categories.each do |category| %>
   <div class="category">
     <div class="category_name">
@@ -14,3 +16,15 @@
     <% end %>
   </div>
 <% end %>
+
+<div id="players">
+  <% @game.players.each do |player| %>
+    <div class="player">
+      <div class="content">
+        <span class="player_name"><%= player.name %></span>
+        <hr>
+        <%= render_score(player.score, score_path(@game, player)) %>
+      </div>
+    </div>
+  <% end %>
+</div>

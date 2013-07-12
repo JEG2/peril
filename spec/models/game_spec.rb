@@ -126,4 +126,17 @@ describe Game do
     category = FactoryGirl.create(:category, game: game)
     expect(game.answer_for(category.slug, 200)).to be_nil
   end
+
+  it "can find the last viewed answer" do
+    last_viewed = FactoryGirl.create(:answer, viewed_at: Time.now)
+    game        = last_viewed.category.game
+    other       = FactoryGirl.create(:category, game: game)
+    FactoryGirl.create(:answer, category: other, viewed_at: nil)
+    expect(game.reload.last_viewed_answer).to eq(last_viewed)
+  end
+
+  it "returns nil if there aren't any viewed answers" do
+    game = FactoryGirl.create(:game)
+    expect(game.last_viewed_answer).to be_nil
+  end
 end
