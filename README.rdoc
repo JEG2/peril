@@ -1,3 +1,25 @@
-== Peril
+= Peril
 
 Peril is a Ruby on Rails application for playing Jeopardy.  It was designed for LoneStarRuby Conference 2013 and is focused on being used via a projector.
+
+== Loading Games
+
+Game files can be loaded using a `Rake` task.  For example:
+
+    bundle exec rake game:load PERIL_GAME_FILE=games/example.rb
+
+If you want to reload the game to pickup changes, add `PERIL_RELOAD_GAME=true`.
+
+== Gameplay
+
+You can advance through full screen blue slides just by clicking.  Answers are viewed by click on their score and the points for the last question can be assigned by clicking on a player's score.
+
+== Blunders
+
+The game includes minimal protection from miss-clicks.
+
+First, blank view screens give you an opportunity to go back before actual content is shown.  This is useful if the click that brought you there was an accident.
+
+Also, the game can undo events.  This applies to marking an answer viewed or scoring the last answer.  The undo feature is bound to a key event on `u`.
+
+If you do back out of an answer click before it is shown, you will also need to undo the view event.
