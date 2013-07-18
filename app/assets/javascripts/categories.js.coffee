@@ -16,4 +16,4 @@ $ ->
       old_path = window.location.pathname
       new_path = old_path.replace /(\/[^\/]+).+/, (_mat, game_slug, _org, _off) ->
         game_slug
-      window.location.href = new_path
+      Turbolinks.visit new_path

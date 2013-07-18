@@ -7,4 +7,4 @@ $ ->
     if event.which == 117
       old_path = window.location.pathname
       new_path = old_path + "/undo"
-      window.location.href = new_path
+      Turbolinks.visit new_path
