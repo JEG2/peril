@@ -52,3 +52,7 @@ group :development, :test do
   gem "autotest-rails"
   gem "factory_girl_rails"
 end
+
+group :production do
+  gem "thin"
+end
