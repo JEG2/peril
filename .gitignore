@@ -18,3 +18,6 @@
 # Ignore game files except for the example
 /games/*
 !/games/example.rb
+
+# Ignore local assets
+/public/assets
